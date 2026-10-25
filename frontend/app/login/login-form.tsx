@@ -17,6 +17,19 @@ type Values = {
 
 const emptyValues: Values = { email: "", password: "" };
 
+type DemoAccount = Values & {
+  label: string;
+};
+
+// Mirrors the accounts seeded by backend/prisma/seed.ts so an evaluator can
+// sign in without typing credentials.
+const demoAccounts: DemoAccount[] = [
+  { label: "Mentor", email: "mentor@heroreview.dev", password: "Mentor@12345" },
+  { label: "Student 1", email: "student1@heroreview.dev", password: "Student@12345" },
+  { label: "Student 2", email: "student2@heroreview.dev", password: "Student@12345" },
+  { label: "Student 3", email: "student3@heroreview.dev", password: "Student@12345" },
+];
+
 export function LoginForm() {
   const [values, setValues] = useState<Values>(emptyValues);
   const [touched, setTouched] = useState<Record<keyof Values, boolean>>({
@@ -45,6 +58,12 @@ export function LoginForm() {
   const handleBlur = (name: keyof Values) => {
     setTouched((current) => ({ ...current, [name]: true }));
     validateField(name, values[name]);
+  };
+
+  const handleDemoFill = (account: DemoAccount) => {
+    setValues({ email: account.email, password: account.password });
+    setTouched({ email: true, password: true });
+    setClientErrors({});
   };
 
   const emailError = clientErrors.email?.[0] ?? state.fields?.email?.[0];
@@ -123,6 +142,26 @@ export function LoginForm() {
           </>
         )}
       </Button>
+
+      <div className="rounded-xl border border-dashed border-foreground/15 bg-cream/60 p-4">
+        <p className="eyebrow">Demo accounts</p>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+          Pick an account to fill the form, then press Sign in.
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          {demoAccounts.map((account) => (
+            <Button
+              key={account.email}
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleDemoFill(account)}
+            >
+              {account.label}
+            </Button>
+          ))}
+        </div>
+      </div>
 
       <p className="text-center text-xs leading-5 text-muted-foreground">
         Your session is stored in an httpOnly cookie and expires after one day.

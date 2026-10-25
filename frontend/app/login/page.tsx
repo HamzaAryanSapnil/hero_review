@@ -40,6 +40,9 @@ export default async function LoginPage() {
                 </dd>
               </div>
             </dl>
+            <p className="mt-3 text-[11px] leading-4 text-muted-foreground">
+              The demo buttons in the form fill these credentials for you.
+            </p>
           </div>
 
           <p className="text-sm text-muted-foreground">
