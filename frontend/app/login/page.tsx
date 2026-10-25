@@ -39,6 +39,12 @@ export default async function LoginPage() {
                   student1@heroreview.dev / Student@12345
                 </dd>
               </div>
+              <div className="flex items-center justify-between gap-3">
+                <dt className="font-medium text-ink">Admin</dt>
+                <dd className="font-mono text-muted-foreground">
+                  admin@gmail.com / Ab123456
+                </dd>
+              </div>
             </dl>
             <p className="mt-3 text-[11px] leading-4 text-muted-foreground">
               The demo buttons in the form fill these credentials for you.

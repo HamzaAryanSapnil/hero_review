@@ -280,6 +280,8 @@ const submissions: SeedSubmission[] = [
 async function main() {
   const mentorEmail = (process.env.SEED_MENTOR_EMAIL || "mentor@heroreview.dev").toLowerCase();
   const mentorPassword = process.env.SEED_MENTOR_PASSWORD || "Mentor@12345";
+  const adminEmail = (process.env.SEED_ADMIN_EMAIL || "admin@gmail.com").toLowerCase();
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD || "Ab123456";
   const studentPassword = process.env.SEED_STUDENT_PASSWORD || "Student@12345";
 
   const mentor = await prisma.user.upsert({
@@ -294,6 +296,23 @@ async function main() {
       email: mentorEmail,
       role: Role.MENTOR,
       passwordHash: await bcrypt.hash(mentorPassword, 10),
+    },
+  });
+
+  // The brief seeds an admin; there is no separate ADMIN role, so the admin is
+  // a second MENTOR account with its own credentials.
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {
+      name: "Admin",
+      role: Role.MENTOR,
+      passwordHash: await bcrypt.hash(adminPassword, 10),
+    },
+    create: {
+      name: "Admin",
+      email: adminEmail,
+      role: Role.MENTOR,
+      passwordHash: await bcrypt.hash(adminPassword, 10),
     },
   });
 
@@ -366,9 +385,10 @@ async function main() {
   ]);
 
   console.log("Seed complete");
-  console.log(`Users: ${users} (1 mentor + ${studentUsers.length} students)`);
+  console.log(`Users: ${users} (2 mentor accounts + ${studentUsers.length} students)`);
   console.log(`Submissions: ${total} (pending ${pending}, approved ${approved}, rejected ${rejected})`);
   console.log(`Mentor login: ${mentorEmail} / ${mentorPassword}`);
+  console.log(`Admin login: ${adminEmail} / ${adminPassword}`);
 }
 
 main()

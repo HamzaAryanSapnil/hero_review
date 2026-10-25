@@ -25,6 +25,7 @@ type DemoAccount = Values & {
 // sign in without typing credentials.
 const demoAccounts: DemoAccount[] = [
   { label: "Mentor", email: "mentor@heroreview.dev", password: "Mentor@12345" },
+  { label: "Admin", email: "admin@gmail.com", password: "Ab123456" },
   { label: "Student 1", email: "student1@heroreview.dev", password: "Student@12345" },
   { label: "Student 2", email: "student2@heroreview.dev", password: "Student@12345" },
   { label: "Student 3", email: "student3@heroreview.dev", password: "Student@12345" },
