@@ -36,6 +36,28 @@ export function AuthShell({
             review them — without spreadsheets, lost links, or duplicate entries.
           </p>
 
+          <div className="auth-3d-scene mt-9" aria-hidden="true">
+            <div className="auth-3d-bob">
+              <div className="auth-3d-stack">
+                <div className="auth-3d-card auth-3d-card-back" />
+                <div className="auth-3d-card auth-3d-card-mid">
+                  <span className="auth-3d-bar w-3/4" />
+                  <span className="auth-3d-bar mt-2 w-1/2" />
+                  <span className="auth-3d-bar mt-2 w-2/3" />
+                </div>
+                <div className="auth-3d-card auth-3d-card-front">
+                  <span className="auth-3d-chip">APPROVED</span>
+                  <span className="auth-3d-bar w-1/2 bg-[rgba(17,24,39,0.35)]" />
+                  <span className="auth-3d-bar mt-2 w-3/4" />
+                  <span className="auth-3d-bar mt-2 w-2/5" />
+                  <span className="mt-3 block w-fit rounded-full bg-[#fad4c0] px-2.5 py-1 font-mono text-[9px] font-semibold text-[#111827]">
+                    github.com/owner/repo
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ul className="mt-8 space-y-3 text-sm text-ink">
             {[
               { icon: CheckCircle2, text: "Validated submissions with duplicate protection" },
