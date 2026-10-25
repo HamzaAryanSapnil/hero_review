@@ -45,3 +45,10 @@ Thumbs.db
 
 # Local temp
 tmp/
+
+# Job-task working files — kept local only, never pushed to GitHub
+docs/
+postman/
+requirement/
+scripts/
+docker-compose.yml
