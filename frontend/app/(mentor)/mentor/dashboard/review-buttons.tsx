@@ -8,28 +8,33 @@ import { Button } from "@/components/ui/button";
 import { initialActionState } from "@/lib/action-state";
 
 export function ReviewButtons({ submissionId }: { submissionId: string }) {
-  const [state, formAction, isPending] = useActionState(
+  const [approveState, approveAction, approvePending] = useActionState(
     updateSubmissionStatus,
     initialActionState,
   );
+  const [rejectState, rejectAction, rejectPending] = useActionState(
+    updateSubmissionStatus,
+    initialActionState,
+  );
+  const isPending = approvePending || rejectPending;
 
   return (
     <div className="space-y-2">
-      <FormAlert message={state.formError} />
-      <div className="flex flex-wrap gap-2">
-        <form action={formAction}>
+      <FormAlert message={approveState.formError ?? rejectState.formError} />
+      <div className="flex flex-nowrap justify-end gap-2">
+        <form action={approveAction}>
           <input type="hidden" name="id" value={submissionId} />
           <input type="hidden" name="status" value="APPROVED" />
           <Button type="submit" size="sm" disabled={isPending}>
-            {isPending ? <Loader2 className="animate-spin" /> : null}
+            {approvePending ? <Loader2 className="animate-spin" /> : null}
             Approve
           </Button>
         </form>
-        <form action={formAction}>
+        <form action={rejectAction}>
           <input type="hidden" name="id" value={submissionId} />
           <input type="hidden" name="status" value="REJECTED" />
           <Button type="submit" size="sm" variant="destructive" disabled={isPending}>
-            {isPending ? <Loader2 className="animate-spin" /> : null}
+            {rejectPending ? <Loader2 className="animate-spin" /> : null}
             Reject
           </Button>
         </form>

@@ -256,13 +256,13 @@ export default async function MentorDashboardPage({ searchParams }: PageProps) {
                         </a>
                       </div>
                     </TableCell>
-                    <TableCell className="max-w-[240px] whitespace-normal text-xs leading-5 text-muted-ink">
+                    <TableCell className="w-[220px] max-w-[220px] align-top text-xs leading-5 wrap-break-word whitespace-normal! text-muted-ink">
                       {truncate(submission.description, 120)}
                     </TableCell>
                     <TableCell className="text-sm text-muted-ink">
                       {submission.reviewedBy?.name ?? "—"}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="align-top text-right whitespace-nowrap">
                       {submission.status === "PENDING" ? (
                         <ReviewButtons submissionId={submission.id} />
                       ) : (
