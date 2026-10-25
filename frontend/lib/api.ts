@@ -44,21 +44,18 @@ export async function apiFetch<T>(
     },
   });
 
-  if (response.status === 401) {
-    if (redirectOn401) {
-      redirect("/login");
-    }
-    throw new ApiError(401, "UNAUTHORIZED", "Your session has expired.");
-  }
-
-  if (response.status === 403) {
-    redirect("/");
-  }
-
   if (!response.ok) {
     const payload = (await response.json().catch(() => null)) as
       | { error?: { code?: string; message?: string; fields?: FieldErrors } }
       | null;
+
+    if (response.status === 401 && redirectOn401) {
+      redirect("/login");
+    }
+
+    if (response.status === 403) {
+      redirect("/");
+    }
 
     throw new ApiError(
       response.status,
